@@ -22,7 +22,7 @@ bool Safe(std::vector<std::vector<int>>& sudoku, int row, int col)
     {
         for (size_t j = col / 3 * 3; j < (col / 3 + 1) * 3; ++j)
         {
-            if ((i != row || j != col) && sudoku[row][col] == sudoku[i][j])
+            if (i != row && j != col && sudoku[row][col] == sudoku[i][j])
                 return false;
         }
     }
@@ -32,14 +32,14 @@ bool Safe(std::vector<std::vector<int>>& sudoku, int row, int col)
 
 bool Sudoku(std::vector<std::vector<int>>& sudoku, int row, int col)
 {
-    if (row == 8 && col == 9)
-        return true;
-
     if (col == 9)
     {
         row++;
         col = 0;
     }
+
+    if (row == 9)
+        return true;
 
     if (sudoku[row][col] != 0)
         return Sudoku(sudoku, row, ++col);
